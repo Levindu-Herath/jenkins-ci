@@ -1,3 +1,4 @@
+def gv
 pipeline{
     agent any
 
@@ -7,11 +8,18 @@ pipeline{
     }
 
     stages{
+        stage("init"){
+            steps{
+                gv=load "script.groovy"
+            }
+        }
         stage("build"){
 
             steps{
-                echo "Building the project"
-                echo "building version ${NEW_VERSION}"
+               script{
+                gv.buildApp()
+               }
+               
             }
         }
         stage("test"){
